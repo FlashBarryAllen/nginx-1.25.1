@@ -1,3 +1,20 @@
 
 Documentation is available at http://nginx.org
 
+1.如果需要调试代码，那么需要两步：
+step 1:
+./configure --prefix=path_to_prefix --with-debug
+
+step 2:
+修改 nginx.conf 文件, 关闭守护进程以及master进程
+daemon off;
+master_process off;
+
+2.如果需要在一台linux机器上配置反向代理, 那么可以参考下面的两种方法添加虚拟服务器
+1)使用ip添加一个ip
+sudo ip addr add 1.1.1.1/24 dev eth0
+sudo ip addr add 2.2.2.2/24 dev eth0
+
+2)使用 ifconfig 绑定一个ip(添加一个虚拟网卡 eth0:0 )
+ifconfig eth0:0 3.3.3.3 netmask 255.255.255.0 up
+ifconfig eth0:1 4.4.4.4 netmask 255.255.255.0 up
